@@ -1,5 +1,6 @@
 node_modules/
 build/
 private_key.pem
+build.pem
 *.crx
 .idea/
