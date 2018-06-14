@@ -2,9 +2,23 @@ import moment from 'moment';
 
 export function generateSsn(min, max) {
     const date = momentRandom(max, min);
-    const uuid = randomIntFromInterval(100, 999);
-    const ssnWOChecksum = date.format('DDMMYY')+'-'+uuid;
+    const uuid = randomIntFromInterval(900, 999);
+    const ssnWOChecksum = `${date.format('DDMMYY')}${getYearPrefix(date)}${uuid}`;
     return ssnWOChecksum + calculateChecksum(ssnWOChecksum);
+}
+
+function getYearPrefix(date) {
+    const year = date.format('YYYY');
+    if(year >= 2000) {
+        return 'A';
+    } else if(year >= 1900 && year < 2000) {
+        return '-';
+    } else if(year < 1900) {
+        return '+';
+    } else {
+        return null;
+    }
+
 }
 
 function calculateChecksum(ssn) {
